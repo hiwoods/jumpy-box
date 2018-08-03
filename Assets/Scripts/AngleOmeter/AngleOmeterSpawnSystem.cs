@@ -50,6 +50,19 @@ public class AngleOmeterSpawnSystem : ComponentSystem
 
     public bool AngleOmeterIsActive => SpawnedOmeter != null && SpawnedOmeter.activeSelf;
 
+    public void ResetOmeter()
+    {
+        if (SpawnedOmeter == null)
+            return;
+
+        ISettings settings = Bootstrap.Settings;
+        AngleOmeterData data = SpawnedOmeter.GetComponent<AngleOmeterData>();
+
+        data.StartAngle = settings.MinAngle;
+        data.EndAngle = settings.MaxAngle;
+        data.RotationSpeed = settings.RotationSpeed;
+    }
+
     private void SpawnOmeter(AngleOmeterSpawnData data)
     {
         if (SpawnedOmeter == null)
@@ -73,11 +86,9 @@ public class AngleOmeterSpawnSystem : ComponentSystem
 
         //create object and set angles
         GameObject meterObject =  Object.Instantiate(ometerPrefab);
-        AngleOmeterData data = meterObject.GetComponent<AngleOmeterData>();
 
-        data.StartAngle = settings.MinAngle;
-        data.EndAngle = settings.MaxAngle;
-        data.RotationSpeed = settings.RotationSpeed;
+        //initialize data values
+        ResetOmeter();
 
         return meterObject;
     }

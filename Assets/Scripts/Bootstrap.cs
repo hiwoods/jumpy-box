@@ -40,7 +40,9 @@ public sealed class Bootstrap : MonoBehaviour
         playerObj.name = Settings.PlayerPrefab.name;
         baseObj.name = Settings.BasePrefab.name;
 
+        //reset UI and angle meter
         GetSystem<UpdateHUDSystem>().UpdateReset();
+        GetSystem<AngleOmeterSpawnSystem>().ResetOmeter();
     }
 
     public static T GetSystem<T>() where T : ComponentSystem

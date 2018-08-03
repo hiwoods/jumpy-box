@@ -30,10 +30,10 @@ public class UpdateHUDSystem : ComponentSystem {
     public void SetupGameObjects()
     {
         UIHandler = GameObject.Find("Canvas").GetComponent<UIEventHandlers>();
+        Score = GameObject.Find("Canvas/Score").GetComponent<Text>();
         StartText = GameObject.Find("Canvas/StartText");
         LoseText = GameObject.Find("Canvas/LoseText");
-        Score = GameObject.Find("Canvas/Score").GetComponent<Text>();
-
+        
         UpdateReset();
     }
 

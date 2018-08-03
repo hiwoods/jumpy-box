@@ -4,6 +4,9 @@ using UnityEngine;
 using Unity.Entities;
 using Unity.Collections;
 
+/*
+ * Shift every down as if the player was moving upward.
+ */
 public class SceneScrollSystem : ComponentSystem
 {
     struct PlayerData

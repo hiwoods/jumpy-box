@@ -4,6 +4,9 @@ using UnityEngine;
 using Unity.Entities;
 using System.Linq;
 
+/*
+ * Clear all objects that are out of screen (lower than minimum Y)
+ */
 [AlwaysUpdateSystem]
 public class RemoveObjectSystem : ComponentSystem {
 
@@ -23,21 +26,20 @@ public class RemoveObjectSystem : ComponentSystem {
 
         ISettings settings = Bootstrap.Settings;
 
-        var transformList = new List<Transform>(ScrollableEntities.Tranforms.ToArray())
+        var transformList = ScrollableEntities.Tranforms.ToArray()
             .Where(transform => transform.position.y < settings.Deadline)
-            .ToList();
+            .ToArray();
 
         DestroyTransforms(transformList);
     }
 
     public void ClearAllObjects()
     {
-        var transforms = new List<Transform>(ScrollableEntities.Tranforms.ToArray());
-        DestroyTransforms(transforms);
+        DestroyTransforms(ScrollableEntities.Tranforms.ToArray());
     }
-
-    private void DestroyTransforms(List<Transform> list)
+    
+    private void DestroyTransforms(Transform[] list)
     {
-        list.ForEach(transform => Object.Destroy(transform.gameObject));
+        System.Array.ForEach(list, transform => Object.Destroy(transform.gameObject));
     }
 }
